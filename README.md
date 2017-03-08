@@ -17,6 +17,5 @@ $ pip install -r requirements.txt
 ### To run it:
 
 ```
-$ source venv/bin/activate
-$ python manage.py runserver
+$ make serve
 ```
