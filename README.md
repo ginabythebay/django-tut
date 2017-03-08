@@ -9,13 +9,11 @@ Running through the django
 
 ```
 $ sudo pip install virtualenv
-$ virtualenv venv
-$ source venv/bin/activate
-$ pip install -r requirements.txt
 ```
 
 ### To run it:
 
 ```
+$ cd mysite
 $ make serve
 ```
