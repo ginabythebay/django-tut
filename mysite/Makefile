@@ -2,14 +2,16 @@
 PYTHON=venv/bin/python
 APPS=polls
 
-.PHONY: serve migrate makemigrations shell createsuperuser
+.PHONY: createsuperuser makemigrations migrate serve shell test
 
-venv: venv/bin/activate
+createsuperuser: venv
+	$(PYTHON) manage.py createsuperuser
 
-venv/bin/activate: requirements.txt
-	test -d venv || virtualenv venv
-	venv/bin/pip install -Ur requirements.txt
-	touch venv/bin/activate
+makemigrations: venv
+	$(PYTHON) manage.py makemigrations $(APPS)
+
+migrate: venv
+	$(PYTHON) manage.py migrate
 
 serve: venv
 	$(PYTHON) manage.py runserver
@@ -17,11 +19,12 @@ serve: venv
 shell: venv
 	$(PYTHON) manage.py shell
 
-migrate: venv
-	$(PYTHON) manage.py migrate
+test: venv
+	$(PYTHON) manage.py test $(APPS)
 
-createsuperuser: venv
-	$(PYTHON) manage.py createsuperuser
+venv/bin/activate: requirements.txt
+	test -d venv || virtualenv venv
+	venv/bin/pip install -Ur requirements.txt
+	touch venv/bin/activate
 
-makemigrations: venv
-	$(PYTHON) manage.py makemigrations $(APPS)
+venv: venv/bin/activate
