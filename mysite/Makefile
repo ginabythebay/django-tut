@@ -2,10 +2,13 @@
 PYTHON=venv/bin/python
 APPS=polls
 
-.PHONY: createsuperuser makemigrations migrate serve shell test
+.PHONY: createsuperuser freeze makemigrations migrate serve shell test
 
 createsuperuser: venv
 	$(PYTHON) manage.py createsuperuser
+
+freeze: venv
+	pip freeze > requirements.txt
 
 makemigrations: venv
 	$(PYTHON) manage.py makemigrations $(APPS)
